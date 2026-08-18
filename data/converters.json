@@ -1,0 +1,12 @@
+[
+    { "id": "WEC-IN-001", "name": "Malabar Alpha", "region": "Arabian Sea", "lat": 12.5, "lng": 74.0, "status": "GREEN" },
+    { "id": "WEC-IN-002", "name": "Konkan Bravo", "region": "Arabian Sea", "lat": 16.0, "lng": 73.0, "status": "YELLOW" },
+    { "id": "WEC-IN-003", "name": "Coromandel Charlie", "region": "Bay of Bengal", "lat": 13.0, "lng": 80.5, "status": "GREEN" },
+    { "id": "WEC-IN-004", "name": "Kutch Delta", "region": "Arabian Sea", "lat": 22.0, "lng": 68.0, "status": "RED" },
+    { "id": "WEC-IN-005", "name": "Kalinga Echo", "region": "Bay of Bengal", "lat": 19.0, "lng": 85.5, "status": "GREEN" },
+    { "id": "WEC-IN-006", "name": "Andaman Foxtrot", "region": "Andaman Sea", "lat": 11.5, "lng": 92.5, "status": "YELLOW" },
+    { "id": "WEC-IN-007", "name": "Vizag Golf", "region": "Bay of Bengal", "lat": 17.5, "lng": 83.5, "status": "GREEN" },
+    { "id": "WEC-IN-008", "name": "Lakshadweep Hotel", "region": "Arabian Sea", "lat": 10.5, "lng": 72.5, "status": "GREEN" },
+    { "id": "WEC-IN-009", "name": "Bengal India", "region": "Bay of Bengal", "lat": 21.0, "lng": 88.5, "status": "RED" },
+    { "id": "WEC-IN-010", "name": "Cauvery Juliet", "region": "Bay of Bengal", "lat": 11.0, "lng": 79.5, "status": "GREEN" }
+]

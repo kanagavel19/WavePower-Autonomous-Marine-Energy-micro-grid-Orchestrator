@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WavePower SCADA</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- The top navbar will be hidden on the landing page, shown elsewhere -->
+        <nav id="top-nav" class="hidden">
+            <div class="nav-left">
+                <div class="brand">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-icon"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+                    WavePower <span class="scada-tag">SCADA</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" data-route="fleet" class="nav-link active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Fleet Map</a>
+                    <a href="#" data-route="analytics" class="nav-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Analytics</a>
+                    <a href="#" data-route="alerts" class="nav-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Alerts</a>
+                    <a href="#" data-route="reports" class="nav-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> Reports</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="status-indicator live">
+                    <span class="dot"></span>
+                    LIVE <span id="clock">17:54:19 UTC</span>
+                </div>
+                <div class="user-email">kanagavelnatarajan19@gma...</div>
+                <button class="btn-signout" id="btnSignOut"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Sign out</button>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            <!-- Content injected here based on route -->
+        </main>
+    </div>
+
+    <!-- Templates -->
+    <template id="tpl-landing">
+        <div class="landing-page">
+            <header class="landing-header">
+                <div class="brand">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-icon"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+                    WavePower <span class="scada-tag">SCADA</span>
+                </div>
+                <button class="btn-cyan" id="btnOperatorSign">Operator sign in</button>
+            </header>
+            
+            <div class="landing-content">
+                <div class="status-tags">
+                    <span class="tag live"><span class="dot"></span> LIVE</span>
+                    <span class="tag">AUTONOMOUS</span>
+                    <span class="tag">MARINE</span>
+                    <span class="tag">MICRO-GRID</span>
+                </div>
+                
+                <h1 class="main-title">Digital twin for offshore<br>Wave Energy Converters.</h1>
+                
+                <p class="main-desc">
+                    A SCADA-grade orchestrator for hydraulics, PTO, generators, batteries and island<br>
+                    grids — driven by AI agents that predict waves, throttle damping, and armor the<br>
+                    fleet against storms.
+                </p>
+
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+                        <h3>Wave Digital Twin</h3>
+                        <p>16 ocean & structural sensors</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        <h3>PTO & Generator</h3>
+                        <p>Torque, RPM, voltage, health</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48 0a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+                        <h3>5 AI Agents</h3>
+                        <p>Sonar • Hydraulic • Safety • Weather • Grid</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <h3>Safe Mode</h3>
+                        <p>Autonomous storm response</p>
+                    </div>
+                </div>
+
+                <button class="btn-cyan mt-xl" id="btnEnterControlRoom">Enter Control Room</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-fleet">
+        <div class="fleet-layout">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h4 class="section-title">FLEET OVERVIEW</h4>
+                    <div class="kpi-boxes">
+                        <div class="kpi-box">
+                            <span class="kpi-val text-green" id="kpi-healthy">0</span>
+                            <span class="kpi-lbl">HEALTHY</span>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-val text-orange" id="kpi-minor">0</span>
+                            <span class="kpi-lbl">MINOR</span>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-val text-red" id="kpi-critical">0</span>
+                            <span class="kpi-lbl">CRITICAL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h4 class="section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> FILTER</h4>
+                    <div class="search-box">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" placeholder="Search converter, region...">
+                    </div>
+                    <div class="filter-pills">
+                        <span class="pill active">All</span>
+                        <span class="pill">Healthy</span>
+                        <span class="pill">Minor Damage</span>
+                        <span class="pill">Critical Damage</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-section fleet-list-wrapper">
+                    <h4 class="section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> CONVERTERS <span id="fleet-count">10</span></h4>
+                    <div class="fleet-list" id="fleet-list-container">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </aside>
+            <div class="map-area" id="map">
+                <!-- Overlay badge -->
+                <div class="map-overlay-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> North Atlantic Micro-Grid <span class="status-indicator live"><span class="dot pulse"></span></span>
+                </div>
+                <div class="map-overlay-right">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 2,488 kW fleet output
+                </div>
+                <!-- Detail Panel -->
+                <div class="wec-detail-panel hidden" id="wecPanel">
+                    <div class="panel-header">
+                        <h3 id="panelWecId">WEC-IN-001</h3>
+                        <button id="closeWecPanel" class="btn-icon">✕</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="status-badge" id="panelStatus">HEALTHY</div>
+                        <div style="font-size: 11px; margin-bottom: 12px; color: var(--text-main);">
+                            <strong>Damage Report:</strong> <span id="panelDamage" class="text-orange">None</span>
+                        </div>
+                        <div class="data-grid">
+                            <div class="data-box"><label>Battery</label><div id="p-batt" class="val">92%</div></div>
+                            <div class="data-box"><label>Runtime</label><div class="val">14d 8h</div></div>
+                            <div class="data-box"><label>Speed (RPM)</label><div id="p-rpm" class="val">--</div></div>
+                            <div class="data-box"><label>Pressure</label><div id="p-press" class="val">-- bar</div></div>
+                            <div class="data-box"><label>Wave Height</label><div id="p-wave" class="val">-- m</div></div>
+                            <div class="data-box"><label>Wave Period</label><div id="p-period" class="val">-- s</div></div>
+                        </div>
+                        <h4 style="font-size: 11px; margin: 16px 0 8px 0; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">ENERGY PRODUCTION</h4>
+                        <div style="font-size: 10px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace;">
+                            <span class="text-cyan">Wave</span> → <span>Hydraulics</span> → <span>PTO</span> → <span class="text-green">Grid</span>
+                        </div>
+                        <h4 style="font-size: 11px; margin: 16px 0 8px 0; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">AI AGENT STATUS</h4>
+                        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 10px;">
+                            <div style="display:flex; justify-content:space-between;"><span>Wave Intel:</span><span id="ag-w" class="text-cyan">--</span></div>
+                            <div style="display:flex; justify-content:space-between;"><span>Hydraulics:</span><span id="ag-h" class="text-cyan">--</span></div>
+                            <div style="display:flex; justify-content:space-between;"><span>Safety:</span><span id="ag-s" class="text-cyan">--</span></div>
+                            <div style="display:flex; justify-content:space-between;"><span>Weather:</span><span id="ag-wea" class="text-cyan">--</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-analytics">
+        <div class="page-layout">
+            <h4 class="section-title mb-md"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> FLEET ANALYTICS</h4>
+            <p class="text-secondary mb-xl" style="font-size: 13px;">Open any converter to see its live analytics: wave, power, battery, wind, pressure, humidity, RPM, hydraulic pressure, PTO torque, stress, corrosion and efficiency charts.</p>
+            
+            <div class="analytics-grid" id="analytics-grid-container">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-alerts">
+        <div class="page-layout">
+            <h4 class="section-title mb-md"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> FLEET-WIDE ALERTS</h4>
+            
+            <div class="alerts-list" id="alerts-list-container">
+                <!-- Alerts go here -->
+                <div class="alert-item">
+                    <div class="alert-indicator bg-orange"></div>
+                    <div class="alert-content">
+                        <div class="alert-header">Corrosion <span class="alert-time">8/18/2026, 11:26:59 PM</span></div>
+                        <div class="alert-desc">Corrosion index rising on hull segment 4</div>
+                    </div>
+                </div>
+                <div class="alert-item">
+                    <div class="alert-indicator bg-orange"></div>
+                    <div class="alert-content">
+                        <div class="alert-header">Temperature <span class="alert-time">8/18/2026, 11:26:33 PM</span></div>
+                        <div class="alert-desc">Oil temperature above threshold</div>
+                    </div>
+                </div>
+                <div class="alert-item">
+                    <div class="alert-indicator bg-red"></div>
+                    <div class="alert-content">
+                        <div class="alert-header">Safety <span class="alert-time">8/18/2026, 11:26:30 PM</span></div>
+                        <div class="alert-desc">Emergency shutdown armed — safe mode active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
