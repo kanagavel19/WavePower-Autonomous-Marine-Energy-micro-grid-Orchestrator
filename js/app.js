@@ -1,3 +1,6 @@
+// Set this to your actual Render backend service URL (e.g. 'my-app.onrender.com')
+const RENDER_BACKEND_URL = 'wavepower-autonomous-marine-energy-micro.onrender.com';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Basic Router
     const mainContent = document.getElementById('main-content');
@@ -9,7 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function connectWS() {
         if(ws) return;
-        ws = new WebSocket(`ws://${window.location.host}`);
+        
+        let socketUrl;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            socketUrl = `ws://${window.location.host}`;
+        } else if (window.location.hostname.endsWith('github.io')) {
+            socketUrl = RENDER_BACKEND_URL.startsWith('ws') 
+                ? RENDER_BACKEND_URL 
+                : `wss://${RENDER_BACKEND_URL}`;
+        } else {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            socketUrl = `${protocol}//${window.location.host}`;
+        }
+        
+        ws = new WebSocket(socketUrl);
         ws.onmessage = (e) => {
             const msg = JSON.parse(e.data);
             if (msg.type === 'telemetry') {
